@@ -1,8 +1,21 @@
 defmodule JsonApiEctoBuilder.QueryBuilder do
+  @moduledoc """
+  Documentation for JsonApiEctoBuilder.
+  """
+
   import Ecto.Query
 
   alias JsonApiEctoBuilder.Applier.{Filter,Join,Sort,Include}
 
+  @doc """
+  Hello world.
+
+  ## Examples
+
+      iex> JsonApiEctoBuilder.hello()
+      :world
+
+  """
   def build_query(base_query, base_type, base_alias, params, apply_join_callback) do
     [primary_key] = base_type.__schema__(:primary_key)
 
