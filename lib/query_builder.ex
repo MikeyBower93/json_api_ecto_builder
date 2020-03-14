@@ -1,4 +1,6 @@
 #TODO: this probably just wants to be JsonApiEctoBuilder
+#TODO: finish documentation
+#TODO: delete json_api_ecto_builder or move this to there?
 defmodule JsonApiEctoBuilder.QueryBuilder do
   @moduledoc """
   Documentation for JsonApiEctoBuilder.
