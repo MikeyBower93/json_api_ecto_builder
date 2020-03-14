@@ -3,7 +3,7 @@ defmodule JsonApiEctoBuilder.ParamParser.Include do
 
   def parse(params) do
     Map.get(params, "include")
-    |> Utilities.maybe_map_string
+    |> Utilities.maybe_string
     |> String.split(",")
     |> Enum.reduce([], fn param, preload_list ->
         Utilities.cleanse_association(param)
@@ -12,7 +12,7 @@ defmodule JsonApiEctoBuilder.ParamParser.Include do
       end)
   end
 
-  def parse_include_to_param_from_param_split([param], list) do
+  defp parse_include_to_param_from_param_split([param], list) do
     new_value = String.to_atom(param)
 
     case Keyword.has_key?(list, new_value) do
@@ -23,7 +23,7 @@ defmodule JsonApiEctoBuilder.ParamParser.Include do
     end
   end
 
-  def parse_include_to_param_from_param_split([param | rest], list) do
+  defp parse_include_to_param_from_param_split([param | rest], list) do
     new_value = String.to_atom(param)
 
     case Keyword.has_key?(list, new_value) do

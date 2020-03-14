@@ -2,8 +2,8 @@ defmodule JsonApiEctoBuilder.ParamParser.Utilities do
   def maybe_map_to_list(nil), do: []
   def maybe_map_to_list(list), do: Map.to_list(list)
 
-  def maybe_map_string(nil), do: ""
-  def maybe_map_string(str), do: str
+  def maybe_string(nil), do: ""
+  def maybe_string(str), do: str
 
   def cleanse_association(association) do
     String.replace(association, "-", "_")

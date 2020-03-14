@@ -4,7 +4,7 @@ defmodule JsonApiEctoBuilder.ParamParser.Sort do
   def parse(params, base_alias) do
     params
     |> Map.get("sort")
-    |> Utilities.maybe_map_string
+    |> Utilities.maybe_string
     |> String.split(",")
     |> Enum.map(parse_from_param_closure(base_alias))
   end

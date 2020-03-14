@@ -36,7 +36,7 @@ defmodule JsonApiEctoBuilder.ParamParser.Join do
     sort_params =
       params
       |> Map.get("sort")
-      |> Utilities.maybe_map_string
+      |> Utilities.maybe_string
       |> String.split(",")
       |> Enum.map(fn field ->
           { _direction, field } = Utilities.get_sort_direction(field)

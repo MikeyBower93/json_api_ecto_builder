@@ -1,6 +1,3 @@
-#TODO: this probably just wants to be JsonApiEctoBuilder
-#TODO: finish documentation
-#TODO: delete json_api_ecto_builder or move this to there?
 defmodule JsonApiEctoBuilder do
   @moduledoc """
   Documentation for JsonApiEctoBuilder.
@@ -23,7 +20,7 @@ defmodule JsonApiEctoBuilder do
     [primary_key] = base_type.__schema__(:primary_key)
 
     #TODO: they must! prebuild the request - test
-    #TODO: unit tests
+    #TODO: unit tests, how can we integration test this? - build_query integration, applier test, utilities test
     #TODO: suggest skriviner for pagination, why reinvent a good horse, and ja_serializer for view renders etc
     #TODO: comment functions
     #TODO: can probably use https://hexdocs.pm/plug/Plug.Parsers.html to build the query for unit tests
