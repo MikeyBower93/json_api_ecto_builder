@@ -1,3 +1,4 @@
+#TODO: this probably just wants to be JsonApiEctoBuilder
 defmodule JsonApiEctoBuilder.QueryBuilder do
   @moduledoc """
   Documentation for JsonApiEctoBuilder.
