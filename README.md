@@ -68,7 +68,7 @@ end
 
 ```
 
-Some of the parameters, functions in this module I will describe shortly, the main thing here is the `build` function accepts params (these are phoenix query parameters), we then call `build_query` which is a call to the internal library function. 
+Here I have created a `build` function that accepts params (these are phoenix query parameters), we then call `build_query` which is a call to the internal library function. 
 
 5 parameters are required to execute the build which are as follows:
 
