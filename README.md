@@ -87,9 +87,9 @@ This is the name of the alias you gave the base query, in this case it is `:rock
 This is the raw phoenix parameters you are passed, this includes the filters, sorts, includes etc.
 
 #### Join Appliers
-This is a callback function that executes when the calling code sees that it needs to apply a join, unfortuantly at this point we cannot build the joins directly in the library as at runtime you cannot create named aliases from a variable, it needs to be a compile time atom. Some work might be done in the future to make this generate using macros, however for not is simple enough to add. 
+This is a callback function that executes when the calling code sees that it needs to apply a join, unfortuantly at this point we cannot build the joins directly in the library as at runtime you cannot create named aliases from a variable, it needs to be a compile time atom. Some work might be done in the future to make this generate using macros, however for now this is simple enough to add. 
 
-In the example I have given I have passed in a function declared in the module I created, and it patttern matches to see which join it needs to apply. The way this works is every if it sees a nested association in your filter or sort such as `rocket->space_center->country` it will break down that association and apply a join for each nesting and create an alias of the association accumulation. For example in the `rocket->space_center->country` example, it will break this down into the following:
+In the example I have given I have passed in a function declared in the module I created, and it pattern matches to see which join it needs to apply. The way this works is if it sees a nested association in your filter or sort such as `rocket->space_center->country` it will break down that association and apply a join for each nesting and create an alias of the association accumulation. For example in the `rocket->space_center->country` example, it will break this down into the following:
 
 1. rocket
 2. rocket_space_center
@@ -103,15 +103,15 @@ After the builder is done, it returns the query with these filters, sorts, prelo
 ## JSON API Parameter Format
 
 ### Sorting
-The format of the sort in the quer paramters should be `sort=field,-nested1.nested2.field` with the `-` meaning descending. 
+The format of the sort in the query parameters should be `sort=field,-nested1.nested2.field` with the `-` meaning descending. 
 
 ### Including
-Includes should follow the format of `entity,entity2.nested_entity`
+Includes should follow the format of `include=entity,entity2.nested_entity`
 
 ### Filters
 Filters should be in the following format `filter[field]=value` for a simple equals filter on a property on the entity, or `filter[association.field]=value` if you want to filter a nested property. 
 
-If you want to a different type of filter that isn't an equals you format the query as the following: `filter[field][operator]=value` using one of the following operators:
+If you want to do a different type of filter that isn't an equals you format the query as the following: `filter[field][operator]=value` using one of the following operators:
 - EQ - equal
 - NEQ - not equal
 - LK - like
@@ -120,16 +120,13 @@ If you want to a different type of filter that isn't an equals you format the qu
 - GT - greater than
 - GTE - greater than or equal to 
 
-## Developer Notes
-
 ## Final Notes/Other Libraries
-
 
 As described in the guide if you need to do any security checks you do this as a pre request, if this requires any joins please follow the join named alias formats defined in join appliers section. 
 
-This library doesn't currently support grouping and conditional types such as or/and etc, if you need to implement something like a search I recommend you pass something back like `filter[my_search]=value` and that you pick that out of the query parameters, add the `my_search` you want to define to the pre-request, if doing this you must removed the `my_search` filter from the query parameters. 
+This library doesn't currently support grouping and conditional types such as or/and etc, if you need to implement something like a search I recommend you pass something back like `filter[my_search]=value` and that you pick that out of the query parameters, add the `my_search` you want to define to the pre-request, if you do this you must removed the `my_search` filter from the query parameters. 
 
-This library does not doing pagination or phoenix view rendering, for this I recommend using
+This library does not support doing pagination or phoenix view rendering, for this I recommend using:
 - https://github.com/drewolson/scrivener (pagination)
 - https://github.com/vt-elixir/ja_serializer (phoenix view rendering)
 
