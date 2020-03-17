@@ -19,7 +19,7 @@ Getting started with this library is easy to do however there are a few standard
 
 **Note** - this guide presumes you have setup your Phoenix endpoints, database, and  schemas.
 
-###Creating an entity module
+### Creating an entity module
 
 All we need to do to use this library is to create an entity module (you can put this in the controller module, however for simlicity I store it in another module), which should look like the following:
 
@@ -30,7 +30,7 @@ end
 ```
 I have created the module, in this case the schema/entity is a rocket. I have also imported the `JsonApiEctoBuilder` library which will expose the required function for you to builder a request. 
 
-###Calling the builder
+### Calling the builder
 To call the builder you will need to create a function in your new module, your module should end up looking like:
 
 ```elixir
@@ -72,21 +72,21 @@ Some of the parameters, functions in this module I will describe shortly, the ma
 
 5 parameters are required to execute the build which are as follows:
 
-####Base Query
+#### Base Query
 This is the base query you want the builder to append to, this can be useful if you want to do any pre-processing on the query such as security safe guards where you might want to limit the results by something on the user token. Please note, if you need to do any joins keep them in the same format as descriped in the apply join paramter section. 
 
 In this base query at a minmum you will need to select from the base entity, in this case the rocket, and give an alias which is usually just the type name, so in this circumstance `:rocket`. 
 
-####Base Type
+#### Base Type
 This is the base type of the main entity, this is so we can run introspection to find out things like the primary key on the type etc, in this circumstance it is simply `Rocket`. 
 
-####Base Alias
+#### Base Alias
 This is the name of the alias you gave the base query, in this case it is `:rocket`.
 
-####Params
+#### Params
 This is the raw phoenix parameters you are passed, this includes the filters, sorts, includes etc.
 
-####Join Appliers
+#### Join Appliers
 This is a callback function that executes when the calling code sees that it needs to apply a join, unfortuantly at this point we cannot build the joins directly in the library as at runtime you cannot create named aliases from a variable, it needs to be a compile time atom. Some work might be done in the future to make this generate using macros, however for not is simple enough to add. 
 
 In the example I have given I have passed in a function declared in the module I created, and it patttern matches to see which join it needs to apply. The way this works is every if it sees a nested association in your filter or sort such as `rocket->space_center->country` it will break down that association and apply a join for each nesting and create an alias of the association accumulation. For example in the `rocket->space_center->country` example, it will break this down into the following:
@@ -97,18 +97,18 @@ In the example I have given I have passed in a function declared in the module I
 
 It will run these in order if it requires them, and will only request them once, so in the example module, you can see that when it sees `space_center` it pulls out the `rocket` named binding as it knows thats what it is associated to, and then when it sees `space_center_country`, it knows that its the `country` associated to the `space_center` so it pulls out the `space_center` binding and joins to that, because of the way the library applies this you can be assured that if it requests `space_center_country` it will have already requested `space_center` to be joined. 
 
-###Reponse
+### Reponse
 After the builder is done, it returns the query with these filters, sorts, preloads added. You can adapt it after this but its recommend you do it in the pre query as there are sub queries built into this which might not give you any desired results by doing after the query is built. 
 
-##JSON API Parameter Format
+## JSON API Parameter Format
 
-###Sorting
+### Sorting
 The format of the sort in the quer paramters should be `sort=field,-nested1.nested2.field` with the `-` meaning descending. 
 
-###Including
+### Including
 Includes should follow the format of `entity,entity2.nested_entity`
 
-###Filters
+### Filters
 Filters should be in the following format `filter[field]=value` for a simple equals filter on a property on the entity, or `filter[association.field]=value` if you want to filter a nested property. 
 
 If you want to a different type of filter that isn't an equals you format the query as the following: `filter[field][operator]=value` using one of the following operators:
@@ -120,7 +120,7 @@ If you want to a different type of filter that isn't an equals you format the qu
 - GT - greater than
 - GTE - greater than or equal to 
 
-##Developer Notes
+## Developer Notes
 
 ## Final Notes/Other Libraries
 
