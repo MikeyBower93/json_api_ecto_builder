@@ -19,8 +19,34 @@ defmodule JsonApiEctoBuilderTest.ParamParserTests.UtilitiesTest do
     assert Utilities.maybe_string("str") == "str"
   end
 
-  #TODO: continue testing here, finish up the param parsers, then move onto integration
   test "cleanse association" do
     assert Utilities.cleanse_association("this-is-an-association") == "this_is_an_association"
+  end
+
+  test "param field to parts reverses fields" do
+    assert Utilities.param_field_to_parts("entity.entity2.field") == ["field", "entity2", "entity"]
+  end
+
+  test "Parse fields and associations flat" do
+    assert Utilities.parse_field_and_associations_from_param("field", :base_alias) == {"field", ["base_alias"]}
+  end
+
+  test "Parse fields and associations nested" do
+    assert Utilities.parse_field_and_associations_from_param("entity.entity2.field", :base_alias) == {"field", ["entity2", "entity"]}
+  end
+
+  test "Associations to named binding" do
+    #Tests that when an associations list has been parsed (probably using parse_field_and_associations_from_param)
+    #to have the fields reversed, that this can get merged into the correct order for a named binding to apply something
+    #to a join.
+    assert Utilities.associations_list_to_named_binding(["entity2", "entity"]) == "entity_entity2"
+  end
+
+  test "Field ascending" do
+    assert Utilities.get_sort_direction("field") == {:asc, "field"}
+  end
+
+  test "Field desecending" do
+    assert Utilities.get_sort_direction("-field") == {:desc, "field"}
   end
 end
