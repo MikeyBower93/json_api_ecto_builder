@@ -2,6 +2,10 @@ defmodule JsonApiEctoBuilder.ParamParser.Utilities do
   def maybe_map_to_list(nil), do: []
   def maybe_map_to_list(list), do: Map.to_list(list)
 
+  def maybe_enumerable(value) when is_list(value), do: value
+  def maybe_enumerable(value) when is_map(value), do: value
+  def maybe_enumerable(value), do: [value]
+
   def maybe_string(nil), do: ""
   def maybe_string(str), do: str
 

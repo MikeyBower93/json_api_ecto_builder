@@ -1,6 +1,8 @@
 defmodule JsonApiEctoBuilderTest.ParamParserTests.UtilitiesTest do
   use ExUnit.Case
 
+  #TODO: test maybe_enumerable
+
   alias JsonApiEctoBuilder.ParamParser.Utilities
 
   test "maybe map to list nil" do

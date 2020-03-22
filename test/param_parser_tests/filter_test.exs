@@ -3,6 +3,9 @@ defmodule JsonApiEctoBuilderTest.ParamParserTests.FilterTest do
 
   alias JsonApiEctoBuilder.ParamParser.Filter
 
+  #TODO: Sort after change for multiple nested values
+  #Also need to test them cases
+
   test "Parse a single base filter" do
     parse_result =
       %{ "filter" => %{"name" => "Hello" } }
