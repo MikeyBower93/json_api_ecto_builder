@@ -19,7 +19,7 @@ defmodule JsonApiEctoBuilderTest.ParamParserTests.UtilitiesTest do
     assert Utilities.maybe_string("str") == "str"
   end
 
-  #TODO: continue testing here
+  #TODO: continue testing here, finish up the param parsers, then move onto integration
   test "cleanse association" do
     assert Utilities.cleanse_association("this-is-an-association") == "this_is_an_association"
   end

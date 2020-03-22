@@ -88,6 +88,6 @@ defmodule JsonApiEctoBuilderTest.ParamParserTests.JoinTest do
       %{ "filter" => %{ "entity.entity2.name" => "Hello" }, "sort" => "sort.sort2.sort" }
       |> Join.parse()
 
-    assert parse_result == [:entity, :entity_entity2, :sort, :sort2]
+    assert parse_result == [:entity, :entity_entity2, :sort, :sort_sort2]
   end
 end

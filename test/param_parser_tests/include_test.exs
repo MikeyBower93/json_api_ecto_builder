@@ -24,8 +24,7 @@ defmodule JsonApiEctoBuilderTest.ParamParserTests.IncludeTest do
       %{ "include" => "entity.entity2.entity3.entity4" }
       |> Include.parse()
 
-    #TODO: bit strange that this ends up with tuple wrapper?
-    assert parse_result == [entity: [entity2: [{:entity3, [:entity4]}]]]
+    assert parse_result == [entity: [entity2: [entity3: [:entity4]]]]
   end
 
   test "Parse multiple nested associations" do
