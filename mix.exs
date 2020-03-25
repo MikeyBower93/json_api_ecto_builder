@@ -8,12 +8,16 @@ defmodule JsonApiEctoBuilder.MixProject do
       elixir: "~> 1.9",
       description: description(),
       package: package(),
+      elixirc_paths: elixirc_paths(Mix.env),
       start_permanent: Mix.env() == :prod,
       build_embedded: Mix.env == :prod,
       start_permanent: Mix.env == :prod,
       deps: deps()
     ]
   end
+
+  defp elixirc_paths(:test), do: ["lib", "test/test_entities"]
+  defp elixirc_paths(_),     do: ["lib"]
 
   defp description do
     """

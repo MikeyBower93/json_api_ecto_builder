@@ -1,8 +1,6 @@
 defmodule JsonApiEctoBuilderTest.ParamParserTests.UtilitiesTest do
   use ExUnit.Case
 
-  #TODO: test maybe_enumerable
-
   alias JsonApiEctoBuilder.ParamParser.Utilities
 
   test "maybe map to list nil" do
@@ -50,5 +48,17 @@ defmodule JsonApiEctoBuilderTest.ParamParserTests.UtilitiesTest do
 
   test "Field desecending" do
     assert Utilities.get_sort_direction("-field") == {:desc, "field"}
+  end
+
+  test "Maybe enumerable list" do
+    assert = Utilities.maybe_enumerable([1, 2]) == [1, 2]
+  end
+
+  test "Maybe enumerable map" do
+    assert = Utilities.maybe_enumerable(%{ "a" => 1, "b" => 2 }) == %{ "a" => 1, "b" => 2 }
+  end
+
+  test "Maybe enumerable string" do
+    assert = Utilities.maybe_enumerable("a") == ["a"]
   end
 end
