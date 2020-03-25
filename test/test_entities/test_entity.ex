@@ -6,5 +6,6 @@ defmodule JsonApiEctoBuilderTest.TestEntities.TestEntity do
     field :y, :string
 
     belongs_to :nested, JsonApiEctoBuilderTest.TestEntities.TestEntity
+    belongs_to :second_nested, JsonApiEctoBuilderTest.TestEntities.TestEntity
   end
 end
