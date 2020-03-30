@@ -4,6 +4,7 @@ defmodule JsonApiEctoBuilder.ParamParser.Filter do
   def parse(params, base_alias) do
     params
     |> Map.get("filter")
+    |> Utilities.maybe_map_to_list
     |> Enum.reduce([], fn {field, value}, accumulator ->
         nested_result =
           value

@@ -66,4 +66,12 @@ defmodule JsonApiEctoBuilderTest.ParamParserTests.FilterTest do
 
     assert parse_result == [{:age, :GT, 1, :base_alias}, {:age, :LT, 3, :base_alias}]
   end
+
+  test "Parse no filters" do
+    parse_result =
+      %{ }
+      |> Filter.parse(:base_alias)
+
+    assert parse_result == []
+  end
 end
