@@ -5,6 +5,7 @@ defmodule JsonApiEctoBuilder.ParamParser.Include do
     Map.get(params, "include")
     |> Utilities.maybe_string
     |> String.split(",")
+    |> handle_empty_list
     |> Enum.reduce([], fn param, preload_list ->
         Utilities.cleanse_association(param)
         |> String.split(".")
@@ -34,4 +35,7 @@ defmodule JsonApiEctoBuilder.ParamParser.Include do
         Keyword.put(list, new_value, parse_include_to_param_from_param_split(rest, existing_value))
     end
   end
+
+  defp handle_empty_list([""]), do: []
+  defp handle_empty_list(list), do: list
 end

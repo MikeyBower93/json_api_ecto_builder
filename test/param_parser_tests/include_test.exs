@@ -42,4 +42,12 @@ defmodule JsonApiEctoBuilderTest.ParamParserTests.IncludeTest do
 
     assert parse_result == [entity: [entity2: [entitynest3: [:entitynest4], entity3: [:entity4]]]]
   end
+
+  test "Parse no includes" do
+    parse_result =
+      %{ }
+      |> Include.parse()
+
+    assert parse_result == []
+  end
 end
