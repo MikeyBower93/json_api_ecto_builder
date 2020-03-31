@@ -9,6 +9,9 @@ defmodule JsonApiEctoBuilder.ParamParser.Utilities do
   def maybe_string(nil), do: ""
   def maybe_string(str), do: str
 
+  def handle_empty_list([""]), do: []
+  def handle_empty_list(list), do: list
+
   def cleanse_association(association) do
     String.replace(association, "-", "_")
   end
@@ -19,16 +22,17 @@ defmodule JsonApiEctoBuilder.ParamParser.Utilities do
     case length(split_param) do
       1 ->
         [field] = split_param
-        { field, [Atom.to_string(base_alias)] }
+        {field, [Atom.to_string(base_alias)]}
+
       _ ->
         [field | associations] = split_param
-        { field, associations }
+        {field, associations}
     end
   end
 
   def associations_list_to_named_binding(associations) do
     associations
-    |> Enum.reverse
+    |> Enum.reverse()
     |> Enum.join("_")
     |> cleanse_association
   end
@@ -36,15 +40,17 @@ defmodule JsonApiEctoBuilder.ParamParser.Utilities do
   def param_field_to_parts(field) do
     field
     |> String.split(".")
-    |> Enum.reverse
+    |> Enum.reverse()
   end
 
   def get_sort_direction(field) do
     case String.at(field, 0) do
       "-" ->
         field = String.slice(field, 1..-1)
-        { :desc, field }
-      _ -> { :asc, field }
+        {:desc, field}
+
+      _ ->
+        {:asc, field}
     end
   end
 end

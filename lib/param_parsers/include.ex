@@ -3,14 +3,14 @@ defmodule JsonApiEctoBuilder.ParamParser.Include do
 
   def parse(params) do
     Map.get(params, "include")
-    |> Utilities.maybe_string
+    |> Utilities.maybe_string()
     |> String.split(",")
-    |> handle_empty_list
+    |> Utilities.handle_empty_list()
     |> Enum.reduce([], fn param, preload_list ->
-        Utilities.cleanse_association(param)
-        |> String.split(".")
-        |> parse_include_to_param_from_param_split(preload_list)
-      end)
+      Utilities.cleanse_association(param)
+      |> String.split(".")
+      |> parse_include_to_param_from_param_split(preload_list)
+    end)
   end
 
   defp parse_include_to_param_from_param_split([param], list) do
@@ -19,6 +19,7 @@ defmodule JsonApiEctoBuilder.ParamParser.Include do
     case Keyword.has_key?(list, new_value) do
       false ->
         list ++ [new_value]
+
       true ->
         list
     end
@@ -30,12 +31,15 @@ defmodule JsonApiEctoBuilder.ParamParser.Include do
     case Keyword.has_key?(list, new_value) do
       false ->
         Keyword.put(list, new_value, parse_include_to_param_from_param_split(rest, []))
+
       true ->
         existing_value = Keyword.get(list, new_value)
-        Keyword.put(list, new_value, parse_include_to_param_from_param_split(rest, existing_value))
+
+        Keyword.put(
+          list,
+          new_value,
+          parse_include_to_param_from_param_split(rest, existing_value)
+        )
     end
   end
-
-  defp handle_empty_list([""]), do: []
-  defp handle_empty_list(list), do: list
 end
