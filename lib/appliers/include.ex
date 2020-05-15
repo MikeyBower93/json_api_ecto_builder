@@ -6,7 +6,9 @@ defmodule JsonApiEctoBuilder.Applier.Include do
   def apply(query, params) do
     preloads = Include.parse(params)
 
-    query
-    |> preload(^preloads)
+    case length(preloads) do
+      0 -> query
+      _ ->preload(query, ^preloads)
+    end
   end
 end

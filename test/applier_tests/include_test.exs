@@ -67,4 +67,12 @@ defmodule JsonApiEctoBuilderTest.ApplierTests.IncludeTest do
 
     assert inspect(generated_query) == inspect(expected_query)
   end
+
+  test "test no includes doesn't have a preload" , %{ base_query: base_query } do
+    generated_query = Include.apply(base_query, %{})
+
+    expected_query = base_query
+
+    assert inspect(generated_query) == inspect(expected_query)
+  end
 end
