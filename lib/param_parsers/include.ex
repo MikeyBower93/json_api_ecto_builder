@@ -14,7 +14,7 @@ defmodule JsonApiEctoBuilder.ParamParser.Include do
   end
 
   defp parse_include_to_param_from_param_split([param], list) do
-    new_value = String.to_atom(param)
+    new_value = String.to_existing_atom(param)
 
     case Keyword.has_key?(list, new_value) do
       false ->
@@ -26,7 +26,7 @@ defmodule JsonApiEctoBuilder.ParamParser.Include do
   end
 
   defp parse_include_to_param_from_param_split([param | rest], list) do
-    new_value = String.to_atom(param)
+    new_value = String.to_existing_atom(param)
 
     case Keyword.has_key?(list, new_value) do
       false ->

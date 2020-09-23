@@ -18,7 +18,7 @@ defmodule JsonApiEctoBuilder.ParamParser.Sort do
 
       nested_association = Utilities.associations_list_to_named_binding(associations)
 
-      {String.to_atom(field), direction, String.to_atom(nested_association)}
+      {String.to_existing_atom(field), direction, String.to_existing_atom(nested_association)}
     end
   end
 end

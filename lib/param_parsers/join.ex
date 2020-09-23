@@ -21,7 +21,7 @@ defmodule JsonApiEctoBuilder.ParamParser.Join do
     join_set
     |> Enum.sort
     |> Enum.map(&Utilities.cleanse_association/1)
-    |> Enum.map(&String.to_atom/1)
+    |> Enum.map(&String.to_existing_atom/1)
   end
 
   defp get_filter_and_sort_list(params) do

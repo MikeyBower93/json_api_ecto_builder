@@ -26,13 +26,13 @@ defmodule JsonApiEctoBuilder.ParamParser.Filter do
     operator = parse_operator(value)
     value = parse_value(value)
 
-    { String.to_atom(field), operator, value, String.to_atom(nested_association) }
+    { String.to_existing_atom(field), operator, value, String.to_existing_atom(nested_association) }
   end
 
   defp parse_operator(value) when is_tuple(value) do
     {operator, _} = value
 
-    String.to_atom(operator)
+    String.to_existing_atom(operator)
   end
 
   defp parse_operator(value) when is_map(value) do
@@ -40,7 +40,7 @@ defmodule JsonApiEctoBuilder.ParamParser.Filter do
       value
       |> Map.to_list
 
-    String.to_atom(operator)
+    String.to_existing_atom(operator)
   end
 
   defp parse_operator(_) do
