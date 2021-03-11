@@ -44,4 +44,11 @@ defmodule JsonApiEctoBuilder.Applier.Filter do
     query
     |> where([{^binding, x}], field(x, ^field_param) == ^value)
   end
+
+  defp do_apply({field_param, :IN, value, binding}, query) do
+    in_value = String.split(value, ",")
+
+    query
+    |> where([{^binding, x}], field(x, ^field_param) in ^in_value)
+  end
 end
