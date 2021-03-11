@@ -154,6 +154,24 @@ defmodule JsonApiEctoBuilderTest.ApplierTests.FilterTest do
     assert inspect(generated_query) == inspect(expected_query)
   end
 
+  test "test single filter IN operator", %{ base_query: base_query, base_alias: base_alias } do
+    filter_param = %{
+      "filter" => %{
+        "x" => %{
+          "IN" => "1,2"
+        }
+      }
+    }
+
+    generated_query = Filter.apply(base_query, filter_param, base_alias)
+
+    expected_query =
+      from t0 in base_query,
+      where: t0.x in ^["1","2"]
+
+    assert inspect(generated_query) == inspect(expected_query)
+  end
+
   test "test multiple filters", %{ base_query: base_query, base_alias: base_alias } do
     filter_param = %{
       "filter" => %{
