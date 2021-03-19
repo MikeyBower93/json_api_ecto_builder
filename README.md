@@ -9,6 +9,8 @@ The package can be installed by adding `json_api_ecto_builder` to your list of d
 ```elixir
 def deps do
   [
+    {:json_api_ecto_builder, "~> 0.1.1"},
+    # OR
     {:json_api_ecto_builder, git: "https://github.com/MikeyBower93/json_api_ecto_builder.git"}
   ]
 end

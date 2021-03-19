@@ -1,8 +1,32 @@
 defmodule JsonApiEctoBuilder do
+  @moduledoc """
+    The main module where you pass the query parameters through to build the query.
+
+    Detailed documentation on the purpose behind the library and how to use it can be
+    found here: https://github.com/MikeyBower93/json_api_ecto_builder
+  """
+
   import Ecto.Query
 
   alias JsonApiEctoBuilder.Applier.{Filter,Join,Sort,Include}
 
+  @doc """
+  Call this function with a query, metadata about the base JSON API entity/type,
+  the query parameters and a callback function for any joins necessary, for example:
+
+  base_query = (from r in Rocket, as: :rocket)
+
+  JsonApiEctoBuilder.build_query(
+    base_query,
+    Rocket,
+    :rocket,
+    %{"filters" => %{"name" => "Apollo 11"}},
+    fn :space_center, query ->
+       (from r in query,
+        join: space_center in assoc(r, :space_center), as: :space_center)
+    end
+  )
+  """
   def build_query(base_query, base_type, base_alias, params, apply_join_callback) do
     [primary_key] = base_type.__schema__(:primary_key)
 
