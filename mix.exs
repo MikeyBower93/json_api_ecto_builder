@@ -27,9 +27,10 @@ defmodule JsonApiEctoBuilder.MixProject do
 
   defp package do
     [
-      maintainers: ["Michael Bower"],
+      name: "json_api_ecto_builder",
+      maintainers: ["Michael Bower", "John Polling"],
       licenses: ["MIT"],
-      links: %{"GitHub" => "https://github.com/kkempin/exiban"}
+      links: %{"GitHub" => "https://github.com/MikeyBower93/json_api_ecto_builder"}
     ]
   end
 
