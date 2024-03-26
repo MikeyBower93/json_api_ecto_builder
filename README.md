@@ -1,5 +1,8 @@
 # JsonApiEctoBuilder
 
+# Archive Notice
+This project has been archived, there is no active development made towards it including no patches. I recommend to use alternative projects, or use this source code as inspiration for creating your own builder.
+
 ## Description
 The purpose of this package is to build up an ecto query from some JSON API query parameters, 99.99% of the time when we create a JSON API endpoint we want to do the same sets of operations, therefore it is wasted effort and wasted code to keep writing the same thing over and over again.
 
